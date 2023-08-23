@@ -4,7 +4,7 @@ CFLAGS = -m32 -nostdlib -nostdinc -fno-builtin -fno-stack-protector \
 LDFLAGS = -T link.ld -melf_i386
 AS = nasm
 ASFLAGS = -f elf
-OBJS = kernel.o loader.o
+OBJS = loader.o kernel.o
 all: kernel iso
 
 kernel: $(OBJS)
@@ -19,7 +19,10 @@ iso: kernel
 	grub-mkrescue -o os.iso iso/
 
 run: iso
-	qemu-system-i386 -boot d -cdrom os.iso -m 512 
+	qemu-system-i386 -boot d -cdrom os.iso -m 512
+
+debug: iso
+	qemu-system-i386 -boot d -cdrom os.iso -m 512 -s -S
 
 %.o: %.c
 	$(CC) $(CFLAGS) $< -o $@

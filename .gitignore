@@ -1,0 +1,8 @@
+bootloader
+*.img
+kernel
+.gdb_history
+*/iso/*
+*.elf
+*.o
+*.iso
